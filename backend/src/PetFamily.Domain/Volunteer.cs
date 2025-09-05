@@ -8,10 +8,10 @@ public class Volunteer : Entity
         Guid id,
         string fullName,
         string email,
+        string description,
         int experienceYears,
         ContactPhone contactPhone,
         DonationDetails donationDetails,
-        List<Pet> pets,
         List<SocialLink> socialLinks)
     {
         Id = id;
@@ -20,7 +20,6 @@ public class Volunteer : Entity
         ExperienceYears = experienceYears;
         ContactPhone = contactPhone;
         DonationDetails = donationDetails;
-        Pets = pets;
         SocialLinks = socialLinks;
     }
     

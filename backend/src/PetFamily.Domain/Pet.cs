@@ -6,14 +6,39 @@ namespace PetFamily.Domain;
 
 public class Pet : Entity
 {
-    public Pet(
+    private Pet(
         Guid id,
-        string name, 
-        string email
-        
-        )
+        string name,
+        string description,
+        Species species,
+        string color,
+        string medicalInfo,
+        string address,
+        int weight,
+        int height,
+        string contactPhone,
+        DateTime birthDate,
+        bool isSterilized,
+        bool isVaccinated,
+        PetStaus status,
+        IReadOnlyList<DonationDetails> donationDetails)
     {
-        
+        Id = id;
+        Name = name;
+        Description = description;
+        //Species
+        //Breed
+        Color = color;
+        MedicalInfo = medicalInfo;
+        Address = address;
+        Weight = weight;
+        Height = height;
+        ContactPhone = ContactPhone.Create();
+        BirthDate = birthDate;
+        IsSterilized = isSterilized;
+        IsVaccinated = isVaccinated;
+        Status = status;
+        DonationDetails = donationDetails;
     }
     
     public Guid Id { get; private set; }
@@ -46,5 +71,5 @@ public class Pet : Entity
     
     public PetStaus Status { get; private set; }
     
-    public List<DonationDetails>? DonationDetails { get; private set; }
+    public IReadOnlyList<DonationDetails>? DonationDetails { get; private set; }
 }

@@ -11,7 +11,7 @@ public record ContactPhone
     
     public string PhoneNumber { get; }
 
-    public static Result<ContactPhone> Create(ContactPhone phoneNumber)
+    public static Result<ContactPhone> Create(string phoneNumber)
     {
         if (phoneNumber == null)
             return Result.Failure<ContactPhone>("Phone number cannot be null.");
