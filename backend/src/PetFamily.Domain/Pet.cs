@@ -10,13 +10,13 @@ public class Pet : Entity
         Guid id,
         string name,
         string description,
-        Species species,
+        Guid speciesId,
         string color,
         string medicalInfo,
         string address,
         int weight,
         int height,
-        string contactPhone,
+        ContactPhone contactPhone,
         DateTime birthDate,
         bool isSterilized,
         bool isVaccinated,
@@ -24,16 +24,15 @@ public class Pet : Entity
         IReadOnlyList<DonationDetails> donationDetails)
     {
         Id = id;
+        SpeciesId = speciesId;
         Name = name;
         Description = description;
-        //Species
-        //Breed
         Color = color;
         MedicalInfo = medicalInfo;
         Address = address;
         Weight = weight;
         Height = height;
-        ContactPhone = ContactPhone.Create();
+        ContactPhone = contactPhone;
         BirthDate = birthDate;
         IsSterilized = isSterilized;
         IsVaccinated = isVaccinated;
@@ -43,13 +42,11 @@ public class Pet : Entity
     
     public Guid Id { get; private set; }
     
+    public Guid SpeciesId { get; private set; }
+    
     public string Name { get; private set; }
     
-    public Species.Species Species { get; private set; }
-    
     public string Description { get; private set; }
-    
-    public Species.Breed Breed { get; private set; }
     
     public string Color { get; private set; }
     
