@@ -1,13 +1,16 @@
-using System.Runtime.InteropServices.JavaScript;
-using CSharpFunctionalExtensions;
-using PetFamily.Domain.Species;
+using PetFamily.Domain.Volunteer;
 
-namespace PetFamily.Domain;
+namespace PetFamily.Domain.Pets;
 
-public class Pet : Entity
+public class Pet : Shared.Entity<PetId>
 {
+    //ef core
+    private Pet(PetId id) : base(id)
+    {
+    }
+    
     private Pet(
-        Guid id,
+        PetId id,
         string name,
         string description,
         Guid speciesId,
@@ -21,9 +24,8 @@ public class Pet : Entity
         bool isSterilized,
         bool isVaccinated,
         PetStaus status,
-        IReadOnlyList<DonationDetails> donationDetails)
+        DonationDetails donationDetails) : base(id)
     {
-        Id = id;
         SpeciesId = speciesId;
         Name = name;
         Description = description;
@@ -40,7 +42,7 @@ public class Pet : Entity
         DonationDetails = donationDetails;
     }
     
-    public Guid Id { get; private set; }
+    public PetId Id { get; private set; }
     
     public Guid SpeciesId { get; private set; }
     
@@ -68,5 +70,10 @@ public class Pet : Entity
     
     public PetStaus Status { get; private set; }
     
-    public IReadOnlyList<DonationDetails>? DonationDetails { get; private set; }
+    public DonationDetails DonationDetails { get; private set; }
+}
+
+public record DonationDetails
+{
+    public List<DonationDetail> Details { get; private set; }
 }

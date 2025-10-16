@@ -1,4 +1,4 @@
-namespace PetFamily.Domain;
+namespace PetFamily.Domain.Pets;
 
 public enum PetStaus
 {

@@ -1,11 +1,12 @@
 using CSharpFunctionalExtensions;
+using PetFamily.Domain.Pets;
 
-namespace PetFamily.Domain;
+namespace PetFamily.Domain.Volunteer;
 
 public class Volunteer : Entity
 {
     private Volunteer(
-        Guid id,
+        VolunteerId id,
         string fullName,
         string email,
         string description,
@@ -17,13 +18,14 @@ public class Volunteer : Entity
         Id = id;
         FullName = fullName;
         Email = email;
+        Description = description;
         ExperienceYears = experienceYears;
         ContactPhone = contactPhone;
         DonationDetails = donationDetails;
         SocialLinks = socialLinks;
     }
     
-    public Guid Id { get; private set; }
+    public VolunteerId Id { get; private set; }
     
     public string FullName { get; private set; }
     
