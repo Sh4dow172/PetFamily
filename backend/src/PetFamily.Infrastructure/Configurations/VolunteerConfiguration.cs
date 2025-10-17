@@ -31,35 +31,40 @@ public class VolunteerConfiguration : IEntityTypeConfiguration<Volunteer>
             .IsRequired()
             .HasMaxLength(Constants.MAX_HIGH_TEXT_LENGTH);
 
-        // builder.Property(v => v.ContactPhone)
-        //     .IsRequired()
-        //     .HasConversion(pn => pn.PhoneNumber,
-        //         value => ContactPhone.Create(value));
+        builder.Property(v => v.ContactPhone)
+            .IsRequired()
+            .HasConversion(pn => pn.PhoneNumber,
+                value => ContactPhone.Create(value).Value);
         
-        builder.OwnsOne(v => v.DonationDetails, dd =>
+        builder.OwnsMany(p => p.DonationDetails, dd =>
         {
             dd.ToJson();
             
-            dd.OwnsMany(d => d.Details, db =>
-            {
-                db.Property(x => x.Name)
-                    .IsRequired()
-                    .HasMaxLength(Constants.MAX_LOW_TEXT_LENGTH);
-
-                db.Property(x => x.Description)
-                    .IsRequired()
-                    .HasMaxLength(Constants.MAX_HIGH_TEXT_LENGTH);
-            });
+            dd.Property(x => x.Name)
+                .IsRequired()
+                .HasMaxLength(Constants.MAX_LOW_TEXT_LENGTH);
+            
+            dd.Property(x => x.Description)
+                .IsRequired()
+                .HasMaxLength(Constants.MAX_HIGH_TEXT_LENGTH);
         });
 
-        builder.Property(v => v.Pets)
-            .IsRequired(false);
-
-        builder.OwnsOne(v => v.SocialLinks, sl =>
+        builder.OwnsMany(p => p.SocialLinks, slb =>
         {
-            sl.ToJson();
-
-            sl.OwnsMany(l => l.)
+            slb.ToJson();
+            
+            slb.Property(x => x.NetworkName)
+                .IsRequired()
+                .HasMaxLength(Constants.MAX_LOW_TEXT_LENGTH);
+            
+            slb.Property(x => x.NetworkUrl)
+                .IsRequired()
+                .HasMaxLength(Constants.MAX_LOW_TEXT_LENGTH);
+        });
+        
+        builder.OwnsMany(p => p.Pets, pb =>
+        {
+            pb.ToJson();
         });
     }
 }

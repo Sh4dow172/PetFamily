@@ -11,9 +11,7 @@ public class Volunteer : Entity
         string email,
         string description,
         int experienceYears,
-        ContactPhone contactPhone,
-        DonationDetails donationDetails,
-        List<SocialLink> socialLinks)
+        ContactPhone contactPhone)
     {
         Id = id;
         FullName = fullName;
@@ -21,8 +19,6 @@ public class Volunteer : Entity
         Description = description;
         ExperienceYears = experienceYears;
         ContactPhone = contactPhone;
-        DonationDetails = donationDetails;
-        SocialLinks = socialLinks;
     }
     
     public VolunteerId Id { get; private set; }
@@ -36,12 +32,12 @@ public class Volunteer : Entity
     public int ExperienceYears { get; private set; }
     
     public ContactPhone ContactPhone { get; private set; }
-    
-    public DonationDetails DonationDetails { get; private set; }
-    
-    public List<Pet>? Pets { get; private set; }
-    
-    public List<SocialLink>? SocialLinks { get; private set; }
+
+    public IReadOnlyList<DonationDetails> DonationDetails { get; private set; } = [];
+
+    public IReadOnlyList<Pet> Pets { get; private set; } = [];
+
+    public IReadOnlyList<SocialLink> SocialLinks { get; private set; } = [];
 
     public int GetAdoptedPetsCount()
     {

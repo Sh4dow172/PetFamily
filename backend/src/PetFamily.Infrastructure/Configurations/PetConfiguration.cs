@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using PetFamily.Domain;
 using PetFamily.Domain.Pets;
 using PetFamily.Domain.Shared;
 
@@ -40,11 +41,11 @@ public class PetConfiguration : IEntityTypeConfiguration<Pet>
         builder.Property(p => p.Height)
             .IsRequired();
 
-        // builder.Property(p => p.ContactPhone)
-        //     .HasMaxLength(Constants.MAX_PHONE_LENGTH)
-        //     .HasConversion(
-        //         phone => phone.PhoneNumber,
-        //         value => ContactPhone.Create(value));
+        builder.Property(p => p.ContactPhone)
+            .HasMaxLength(Constants.MAX_PHONE_LENGTH)
+            .HasConversion(
+                phone => phone.PhoneNumber,
+                value => ContactPhone.Create(value).Value);
         
         builder.Property(p => p.BirthDate)
             .IsRequired();
@@ -58,20 +59,17 @@ public class PetConfiguration : IEntityTypeConfiguration<Pet>
         builder.Property(p => p.Status)
             .IsRequired();
 
-        builder.OwnsOne(p => p.DonationDetails, dd =>
+        builder.OwnsMany(p => p.DonationDetails, dd =>
         {
             dd.ToJson();
             
-            dd.OwnsMany(d => d.Details, db =>
-            {
-                db.Property(x => x.Name)
-                    .IsRequired()
-                    .HasMaxLength(Constants.MAX_LOW_TEXT_LENGTH);
-
-                db.Property(x => x.Description)
-                    .IsRequired()
-                    .HasMaxLength(Constants.MAX_HIGH_TEXT_LENGTH);
-            });
+            dd.Property(x => x.Name)
+                .IsRequired()
+                .HasMaxLength(Constants.MAX_LOW_TEXT_LENGTH);
+            
+            dd.Property(x => x.Description)
+                .IsRequired()
+                .HasMaxLength(Constants.MAX_HIGH_TEXT_LENGTH);
         });
     }
 }

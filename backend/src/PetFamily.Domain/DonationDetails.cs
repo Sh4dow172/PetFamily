@@ -2,9 +2,9 @@ using CSharpFunctionalExtensions;
 
 namespace PetFamily.Domain;
 
-public record DonationDetail
+public record DonationDetails
 {
-    private DonationDetail(string name, string description)
+    private DonationDetails(string name, string description)
     {
         Name = name;
         Description = description;
@@ -13,11 +13,11 @@ public record DonationDetail
     public string Name { get; }
     public string Description { get; }
 
-    public static Result<DonationDetail> Create(string name, string description)
+    public static Result<DonationDetails> Create(string name, string description)
     {
         if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(description))
-            return Result.Failure<DonationDetail>("Name and network name cannot be empty.");
+            return Result.Failure<DonationDetails>("Name and network name cannot be empty.");
         
-        return new DonationDetail(name, description);
+        return new DonationDetails(name, description);
     }
 }

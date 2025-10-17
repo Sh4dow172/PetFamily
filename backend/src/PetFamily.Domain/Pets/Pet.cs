@@ -23,8 +23,7 @@ public class Pet : Shared.Entity<PetId>
         DateTime birthDate,
         bool isSterilized,
         bool isVaccinated,
-        PetStaus status,
-        DonationDetails donationDetails) : base(id)
+        PetStaus status) : base(id)
     {
         SpeciesId = speciesId;
         Name = name;
@@ -39,7 +38,6 @@ public class Pet : Shared.Entity<PetId>
         IsSterilized = isSterilized;
         IsVaccinated = isVaccinated;
         Status = status;
-        DonationDetails = donationDetails;
     }
     
     public PetId Id { get; private set; }
@@ -69,11 +67,6 @@ public class Pet : Shared.Entity<PetId>
     public bool IsVaccinated { get; private set; }
     
     public PetStaus Status { get; private set; }
-    
-    public DonationDetails DonationDetails { get; private set; }
-}
 
-public record DonationDetails
-{
-    public List<DonationDetail> Details { get; private set; }
+    public IReadOnlyList<DonationDetails> DonationDetails { get; private set; } = [];
 }
