@@ -3,17 +3,21 @@ using PetFamily.Domain.Pets;
 
 namespace PetFamily.Domain.Volunteer;
 
-public class Volunteer : Entity
+public class Volunteer : Shared.Entity<VolunteerId>
 {
+    //ef core
+    public Volunteer(VolunteerId id) : base(id)
+    {
+    }
+    
     private Volunteer(
         VolunteerId id,
         string fullName,
         string email,
         string description,
         int experienceYears,
-        ContactPhone contactPhone)
+        ContactPhone contactPhone) : base(id)
     {
-        Id = id;
         FullName = fullName;
         Email = email;
         Description = description;

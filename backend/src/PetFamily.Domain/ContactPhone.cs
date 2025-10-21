@@ -4,6 +4,11 @@ namespace PetFamily.Domain;
 
 public record ContactPhone
 {
+    //ef core
+    private ContactPhone()
+    {
+    }
+    
     private ContactPhone(string phoneNumber)
     {
         PhoneNumber = phoneNumber;

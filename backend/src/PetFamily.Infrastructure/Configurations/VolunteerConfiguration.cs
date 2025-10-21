@@ -17,7 +17,8 @@ public class VolunteerConfiguration : IEntityTypeConfiguration<Volunteer>
         builder.Property(p => p.Id)
             .HasConversion(
                 id => id.Value,
-                value => VolunteerId.Create(value));
+                value => VolunteerId.Create(value))
+            .HasColumnName("id");
 
         builder.Property(v => v.FullName)
             .IsRequired()
@@ -61,10 +62,10 @@ public class VolunteerConfiguration : IEntityTypeConfiguration<Volunteer>
                 .IsRequired()
                 .HasMaxLength(Constants.MAX_LOW_TEXT_LENGTH);
         });
-        
-        builder.OwnsMany(p => p.Pets, pb =>
-        {
-            pb.ToJson();
-        });
+
+        builder.HasMany(v => v.Pets)
+            .WithOne(p => p.Volunteer)
+            .HasForeignKey(p => p.VolunteerId)
+            .OnDelete(DeleteBehavior.NoAction);
     }
 }

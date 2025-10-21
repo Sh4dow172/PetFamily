@@ -2,13 +2,18 @@ namespace PetFamily.Domain.Species;
 
 public class Breed
 {
-    public Breed(Guid id, string name)
+    //ef core
+    public Breed()
+    {
+    }
+    
+    public Breed(Guid id, string breedName)
     {
         Id = id;
-        Name = name;
+        BreedName = breedName;
     }
     
     public Guid Id { get; private set; }
     
-    public string Name { get; private set; }
+    public string BreedName { get; private set; }
 }

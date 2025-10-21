@@ -11,9 +11,11 @@ public class Pet : Shared.Entity<PetId>
     
     private Pet(
         PetId id,
+        VolunteerId volunteerId,
+        Volunteer.Volunteer volunteer,
         string name,
         string description,
-        Guid speciesId,
+        SpeciesBreedRef speciesBreedRef,
         string color,
         string medicalInfo,
         string address,
@@ -25,9 +27,11 @@ public class Pet : Shared.Entity<PetId>
         bool isVaccinated,
         PetStaus status) : base(id)
     {
-        SpeciesId = speciesId;
+        VolunteerId = volunteerId;
+        Volunteer = volunteer;
         Name = name;
         Description = description;
+        SpeciesBreedRef = speciesBreedRef;
         Color = color;
         MedicalInfo = medicalInfo;
         Address = address;
@@ -41,8 +45,12 @@ public class Pet : Shared.Entity<PetId>
     }
     
     public PetId Id { get; private set; }
+
+    public VolunteerId VolunteerId { get; private set; }
     
-    public Guid SpeciesId { get; private set; }
+    public Volunteer.Volunteer Volunteer { get; private set; }
+    
+    public SpeciesBreedRef SpeciesBreedRef { get; private set; }
     
     public string Name { get; private set; }
     

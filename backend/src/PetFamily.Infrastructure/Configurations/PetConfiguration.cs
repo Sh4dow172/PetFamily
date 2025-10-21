@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using PetFamily.Domain;
 using PetFamily.Domain.Pets;
 using PetFamily.Domain.Shared;
+using PetFamily.Domain.Volunteer;
 
 namespace PetFamily.Infrastructure.Configurations;
 
@@ -18,6 +19,11 @@ public class PetConfiguration : IEntityTypeConfiguration<Pet>
             .HasConversion(
                 id => id.Value,
                 value => PetId.Create(value));
+        
+        builder.Property(p => p.VolunteerId)
+            .HasConversion(
+                id => id.Value,
+                value => VolunteerId.Create(value));
 
         builder.Property(p => p.Name)
             .IsRequired()
@@ -58,6 +64,11 @@ public class PetConfiguration : IEntityTypeConfiguration<Pet>
         
         builder.Property(p => p.Status)
             .IsRequired();
+
+        builder.OwnsOne(p => p.SpeciesBreedRef, sb =>
+        {
+            sb.ToJson();
+        });
 
         builder.OwnsMany(p => p.DonationDetails, dd =>
         {
