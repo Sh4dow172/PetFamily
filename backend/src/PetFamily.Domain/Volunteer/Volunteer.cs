@@ -1,29 +1,31 @@
 using CSharpFunctionalExtensions;
+using PetFamily.Domain.Pets;
 
-namespace PetFamily.Domain;
+namespace PetFamily.Domain.Volunteer;
 
-public class Volunteer : Entity
+public class Volunteer : Shared.Entity<VolunteerId>
 {
+    //ef core
+    public Volunteer(VolunteerId id) : base(id)
+    {
+    }
+    
     private Volunteer(
-        Guid id,
+        VolunteerId id,
         string fullName,
         string email,
         string description,
         int experienceYears,
-        ContactPhone contactPhone,
-        DonationDetails donationDetails,
-        List<SocialLink> socialLinks)
+        ContactPhone contactPhone) : base(id)
     {
-        Id = id;
         FullName = fullName;
         Email = email;
+        Description = description;
         ExperienceYears = experienceYears;
         ContactPhone = contactPhone;
-        DonationDetails = donationDetails;
-        SocialLinks = socialLinks;
     }
     
-    public Guid Id { get; private set; }
+    public VolunteerId Id { get; private set; }
     
     public string FullName { get; private set; }
     
@@ -34,12 +36,12 @@ public class Volunteer : Entity
     public int ExperienceYears { get; private set; }
     
     public ContactPhone ContactPhone { get; private set; }
-    
-    public DonationDetails DonationDetails { get; private set; }
-    
-    public List<Pet>? Pets { get; private set; }
-    
-    public List<SocialLink>? SocialLinks { get; private set; }
+
+    public IReadOnlyList<DonationDetails> DonationDetails { get; private set; } = [];
+
+    public IReadOnlyList<Pet> Pets { get; private set; } = [];
+
+    public IReadOnlyList<SocialLink> SocialLinks { get; private set; } = [];
 
     public int GetAdoptedPetsCount()
     {

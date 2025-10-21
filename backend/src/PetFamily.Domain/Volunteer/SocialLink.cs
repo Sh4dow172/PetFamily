@@ -1,9 +1,14 @@
 using CSharpFunctionalExtensions;
 
-namespace PetFamily.Domain;
+namespace PetFamily.Domain.Volunteer;
 
 public record SocialLink
 {
+    //ef core
+    private SocialLink()
+    {
+    }
+    
     private SocialLink(string networkName, string networkUrl)
     {
         NetworkName = networkName;
@@ -11,7 +16,6 @@ public record SocialLink
     }
     
     public string NetworkName { get; }
-    
     public string NetworkUrl { get; }
 
     public static Result<SocialLink> Create(string networkName, string networkUrl)

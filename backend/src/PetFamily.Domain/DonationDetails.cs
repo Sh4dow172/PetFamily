@@ -4,6 +4,11 @@ namespace PetFamily.Domain;
 
 public record DonationDetails
 {
+    //ef core
+    private DonationDetails()
+    {
+    }
+    
     private DonationDetails(string name, string description)
     {
         Name = name;
